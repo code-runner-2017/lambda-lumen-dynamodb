@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: My PHP Application
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  phpserver:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}-phpserver
+      Description: PHP Webserver
+      CodeUri: src/php
+      Runtime: provided
+      Handler: index.php
+      MemorySize: 3008
+      Timeout: 30
+      Tracing: Active
+      Layers:
+        - !Sub arn:aws:lambda:eu-west-1:532065703506:layer:php7_1-stackery_mbstring:9
+      Events:
+        api:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
