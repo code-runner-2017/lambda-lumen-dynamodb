@@ -12,11 +12,13 @@
 */
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\MovieController;
+
 
 $router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('movies',  ['uses' => 'MovieController@showAll']);
+    $router->get('movies',  ['uses' => 'MovieController@getAll']);
 
-    $router->get('movies/{id}', ['uses' => 'MovieController@showOne']);
+    $router->get('movies/{id}', ['uses' => 'MovieController@getById']);
 
     $router->post('movies', ['uses' => 'MovieController@create']);
 
@@ -25,26 +27,36 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->put('movies/{id}', ['uses' => 'MovieController@update']);
 });
 
-
 $router->get('/hello', function () use ($router) {
     return 'hello world!';
 });
 
-$router->get('/test', function (Request $request) use ($router) {
-    $obj = new \stdClass();
-    $obj->title = 'Blade Runner';
-    $obj->director = 'Riddley Scott';
-    $obj->uri = $request->path();
-    $obj->name = $request->input('name');
-        
-    return response()->json($obj);
-});
+// TODO: right now works on local dynamo only
+// see https://github.com/baopham/laravel-dynamodb/issues/90
+$router->get('/createtables', function (Request $request) use ($router) {
+    $sdk = new \Aws\Sdk([
+            'endpoint' => 'http://localhost:8000',
+            'region' => 'eu-central-1',
+            'version' => 'latest',
+            'credentials' => [
+                'key'    => 'dynamodb_local',
+                'secret' => 'secret',
+            ],
+	]);
 
-/**
- * Example: Querying an RDS database (postgresql) using plain PDO.
- */
-$router->get('/testdb', function (Request $request) use ($router) {
-    $users = app('db')->select("SELECT * FROM users");    
-    return response()->json($users);    
-});
+	$dynamodb = $sdk->createDynamoDb();
 
+    $schema = (require __DIR__ . '/../database/dynamodb/tables.php');
+
+    foreach ($schema as $tableSchema) {
+        try {
+            $dynamodb->deleteTable($tableSchema);
+        } catch (Exception $ex) {
+            // safely ignore
+        }
+
+        $table = $dynamodb->createTable($tableSchema);
+    }
+
+    return "OK";
+});

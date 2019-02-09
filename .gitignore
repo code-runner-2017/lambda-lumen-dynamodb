@@ -5,3 +5,5 @@
 /src/php/lumen/.env
 serverless-output.yaml
 /dynamodb_local_latest
+/.idea
+/src/php/lumen/php-cli.ini

@@ -13,8 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        // \Nord\Lumen\DynamoDb\Console\DynamoDbCommand::class,
-        \Nord\Lumen\DynamoDb\Console\CreateTablesCommand::class
+        // Nord\Lumen\DynamoDb\Console\CreateTablesCommand::class,
+        // \Nord\Lumen\DynamoDb\Console\DeleteTablesCommand::class
     ];
 
     /**

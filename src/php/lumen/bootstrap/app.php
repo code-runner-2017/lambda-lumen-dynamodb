@@ -27,7 +27,7 @@ $app->withFacades();
 
 // $app->withEloquent();
 
-$app->configure('services');
+$app->configure('dynamodb');
 
 /*
 |--------------------------------------------------------------------------
@@ -83,7 +83,7 @@ $app->singleton(
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
-$app->register(Nord\Lumen\DynamoDb\DynamoDBServiceProvider::class);
+$app->register(BaoPham\DynamoDb\DynamoDbServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
