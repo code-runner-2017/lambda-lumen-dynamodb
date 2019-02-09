@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\CreateTables;
 use Illuminate\Console\Scheduling\Schedule;
 use Laravel\Lumen\Console\Kernel as ConsoleKernel;
 
@@ -15,6 +16,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         // Nord\Lumen\DynamoDb\Console\CreateTablesCommand::class,
         // \Nord\Lumen\DynamoDb\Console\DeleteTablesCommand::class
+        CreateTables::class
     ];
 
     /**

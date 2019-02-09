@@ -11,7 +11,6 @@ These are needed if you want to replicate this in your alredy existing applicati
 
     $app->register(Nord\Lumen\DynamoDb\DynamoDBServiceProvider::class);
 
-
 # Instructions to run locally
 
 - Copy .env.example to .env 
@@ -31,11 +30,9 @@ With powershell:
 
 - Edit the `database/dynamodb/tables.php` and run this to create the tables:
 
-    php artisan dynamodb:create --config=database/dynamodb/tables.php
+    php artisan dynamodb:create-tables
   
 In you change something, delete the table and create them again:
-
-    php artisan dynamodb:delete --config=database/dynamodb/tables.php
 
     php -S localhost:8001 -t public
 

@@ -31,32 +31,3 @@ $router->get('/hello', function () use ($router) {
     return 'hello world!';
 });
 
-// TODO: right now works on local dynamo only
-// see https://github.com/baopham/laravel-dynamodb/issues/90
-$router->get('/createtables', function (Request $request) use ($router) {
-    $sdk = new \Aws\Sdk([
-            'endpoint' => 'http://localhost:8000',
-            'region' => 'eu-central-1',
-            'version' => 'latest',
-            'credentials' => [
-                'key'    => 'dynamodb_local',
-                'secret' => 'secret',
-            ],
-	]);
-
-	$dynamodb = $sdk->createDynamoDb();
-
-    $schema = (require __DIR__ . '/../database/dynamodb/tables.php');
-
-    foreach ($schema as $tableSchema) {
-        try {
-            $dynamodb->deleteTable($tableSchema);
-        } catch (Exception $ex) {
-            // safely ignore
-        }
-
-        $table = $dynamodb->createTable($tableSchema);
-    }
-
-    return "OK";
-});
