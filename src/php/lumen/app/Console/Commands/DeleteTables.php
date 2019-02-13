@@ -5,11 +5,11 @@ namespace App\Console\Commands;
 use BaoPham\DynamoDb\DynamoDbClientService;
 use Illuminate\Console\Command;
 
-class CreateTables extends Command
+class DeleteTables extends Command
 {
-    protected $signature = 'dynamodb:create-tables';
+    protected $signature = 'dynamodb:delete-tables';
 
-    protected $description = 'DynamoDB Create Tables';
+    protected $description = 'DynamoDB Delete Tables';
 
     public function handle(DynamoDbClientService $dynamoService)
     {
@@ -18,9 +18,13 @@ class CreateTables extends Command
         $schema = (require __DIR__ . '/../../../database/dynamodb/tables.php');
 
         foreach ($schema as $tableSchema) {
-            $table = $dynamodb->createTable($tableSchema);
+            try {
+                $dynamodb->deleteTable($tableSchema);
+            } catch (\Exception $ex) {
+                // safely ignore
+            }
         }
-
-        echo "Created tables";
+        
+        echo "Deleted tables";
     }
 }

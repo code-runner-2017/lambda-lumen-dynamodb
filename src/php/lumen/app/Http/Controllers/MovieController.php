@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\MovieModel;
-use Aws\DynamoDb\Marshaler;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -37,11 +36,21 @@ class MovieController extends Controller
     public function create(Request $request)
     {
         $title = $request->input('title');
+        $year = $request->input('year');
+        $director = $request->input('director');
+
+        if ($title === null) {
+            return response()->json([
+                'error' => 'Bad Request',
+                'message' => "Missing mandatory 'title'"],
+                400);
+        }
 
         $movie = new MovieModel();
         $movie->id = Str::uuid()->toString();
         $movie->title = $title;
-        $movie->year = rand(1970, 2018);
+        $movie->year = $year;
+        $movie->director = $director;
         $movie->save();
 
         return $movie->id;

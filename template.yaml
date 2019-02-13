@@ -1,23 +1,29 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: My PHP Application
+Description: Sample API using Dynamodb
 Transform: AWS::Serverless-2016-10-31
 Resources:
   phpserver:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${AWS::StackName}-phpserver
-      Description: PHP Webserver
+      Description: Sample API using Dynamodb
       CodeUri: src/php
       Runtime: provided
       Handler: index.php
-      MemorySize: 3008
+      MemorySize: 1024
       Timeout: 30
       Tracing: Active
       Layers:
-        - !Sub arn:aws:lambda:eu-west-1:532065703506:layer:php7_1-stackery_mbstring:9
+        - !Sub arn:aws:lambda:eu-west-1:887080169480:layer:php73:2
+      Policies: AmazonDynamoDBFullAccess
       Events:
         api:
           Type: Api
           Properties:
             Path: /{proxy+}
             Method: ANY
+      Environment:
+        Variables:
+          DYNAMODB_CONNECTION: aws_iam_role
+          DYNAMODB_DEBUG: false
+          DYNAMODB_REGION: eu-west-1
