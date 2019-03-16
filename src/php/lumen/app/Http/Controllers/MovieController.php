@@ -21,7 +21,7 @@ class MovieController extends Controller
         $title = $request->input('title');
 
         if ($title == null) {
-            return $model->all();  // OK
+            return $model->all();
         } else {
             return $model->where('title', '=', $title)->get();
         }
@@ -29,8 +29,7 @@ class MovieController extends Controller
 
     public function getById(MovieModel $model, string $id)
     {
-        // return $model->where('id', '=', $id)->get();
-        return $model->find($id);   // OK
+        return $model->find($id);
     }
 
     public function create(Request $request)
@@ -79,8 +78,7 @@ class MovieController extends Controller
             });
 
         } else {
-            // $model->where('id', '=', $id)->delete();
-            $model->find($id)->delete();  // OK
+            $model->find($id)->delete();
         }
     }
 }
