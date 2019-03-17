@@ -2,7 +2,7 @@
 
 The full story here: https://link.medium.com/4bRFZ3kJqT 
 
-# Changes to run (lumen-dynamodb)[https://github.com/digiaonline/lumen-dynamodb] 
+# Changes to run (lumen-dynamodb) 
 
 These are needed if you want to replicate this in your alredy existing application:
 
@@ -10,6 +10,8 @@ These are needed if you want to replicate this in your alredy existing applicati
     $app->configure('services');
     ...
     $app->register(Nord\Lumen\DynamoDb\DynamoDBServiceProvider::class);
+    
+See (lumen-dynamodb)[https://github.com/digiaonline/lumen-dynamodb] for further details.
 
 # Instructions to run locally
 
