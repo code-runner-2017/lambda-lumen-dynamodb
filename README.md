@@ -6,9 +6,9 @@ The full story here: https://link.medium.com/4bRFZ3kJqT
 
 These are needed if you want to replicate this in your alredy existing application:
 
-- in app.php:
+- changes to bootstrap/app.php:
     $app->configure('services');
-
+    ...
     $app->register(Nord\Lumen\DynamoDb\DynamoDBServiceProvider::class);
 
 # Instructions to run locally
