@@ -11,7 +11,7 @@ These are needed if you want to replicate this in your alredy existing applicati
     ...
     $app->register(Nord\Lumen\DynamoDb\DynamoDBServiceProvider::class);
     
-See (lumen-dynamodb)[https://github.com/digiaonline/lumen-dynamodb] for further details.
+See [lumen-dynamodb](https://github.com/digiaonline/lumen-dynamodb) for further details.
 
 # Instructions to run locally
 
