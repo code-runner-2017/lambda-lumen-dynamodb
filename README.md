@@ -39,15 +39,14 @@ In you change something, delete the table and create them again:
 # API Usage
 
 
-    $ curl -X POST -H 'Content-Type:application/json' http://localhost:8001/api/movies -d '{"title":"prova"}'
+    $ curl -X POST -H 'Content-Type:application/json' http://localhost:8001/api/movies -d '{"title":"Blade Runner"}'
 
     $ curl  http://localhost:8001/api/movies | jq .
     
     $ curl  http://localhost:8001/api/movies/<YOURID> | jq .
     
     $ curl  -X DELETE http://localhost:8001/api/movies/<YOURID>
-        
-    // NOT WORKING
+           
     $ curl  -X DELETE http://localhost:8001/api/movies/*
  
-    $ curl -X PUT -H 'Content-Type:application/json' http://localhost:8001/api/movies/8c9a52d8-bd19-4881-a436-2d6eddfd8a8e -d '{"title":"titanic 2"}'
+    $ curl -X PUT -H 'Content-Type:application/json' http://localhost:8001/api/movies/8c9a52d8-bd19-4881-a436-2d6eddfd8a8e -d '{"title":"Blade Runner 2049"}'
